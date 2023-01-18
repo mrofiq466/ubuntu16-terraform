@@ -19,14 +19,6 @@ resource "libvirt_pool" "test" {
   path = "/tmp/test"
 }
 
-# We fetch the latest ubuntu release image from their mirrors
-resource "libvirt_volume" "ubuntu-vda" {
-  name   = "ubuntu-vda.qcow2"
-  pool   = libvirt_pool.test.name
-  source = "https://cloud-images.ubuntu.com/releases/xenial/release/ubuntu-16.04-server-cloudimg-amd64-disk1.img"
-  format = "qcow2"
-}
-
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "commoninit.iso"
   user_data      = data.template_file.user_data.rendered
@@ -40,6 +32,14 @@ data "template_file" "user_data" {
 
 data "template_file" "network_config" {
   template = file("${path.module}/network_config.cfg")
+}
+
+# We fetch the latest ubuntu release image from their mirrors
+resource "libvirt_volume" "ubuntu-vda" {
+  name   = "ubuntu-vda.qcow2"
+  pool   = libvirt_pool.test.name
+  source = "https://cloud-images.ubuntu.com/releases/xenial/release/ubuntu-16.04-server-cloudimg-amd64-disk1.img"
+  format = "qcow2"
 }
 
 # Create the machine
