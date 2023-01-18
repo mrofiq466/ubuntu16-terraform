@@ -38,7 +38,8 @@ data "template_file" "network_config" {
 resource "libvirt_volume" "ubuntu-vda" {
   name   = "ubuntu-vda.qcow2"
   pool   = libvirt_pool.test.name
-  source = "https://cloud-images.ubuntu.com/releases/xenial/release/ubuntu-16.04-server-cloudimg-amd64-disk1.img"
+  #source = "https://cloud-images.ubuntu.com/releases/xenial/release/ubuntu-16.04-server-cloudimg-amd64-disk1.img"
+  source = "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
   format = "qcow2"
 }
 
